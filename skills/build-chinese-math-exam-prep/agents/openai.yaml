@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文数学考试备考讲义"
+  short_description: "根据试卷与学习资料构建、校对并发布中文数学考试冲刺讲义"
+  default_prompt: "使用 $build-chinese-math-exam-prep 从这些试卷和参考资料制作一份自包含、可编译并经过终验的中文数学备考讲义。"

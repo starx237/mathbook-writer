@@ -1,0 +1,4 @@
+interface:
+  display_name: "数学学习计划与学习材料设计"
+  short_description: "依据学习者背景定制数学学习路线、阅读计划与端到端自学材料"
+  default_prompt: "使用 $design-math-study-plan 根据我的背景和资料设计学习计划，必要时整合成连续的自学材料。"

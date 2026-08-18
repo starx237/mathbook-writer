@@ -1,0 +1,26 @@
+{
+  "pdfs": [
+    {
+      "path": "main.pdf",
+      "min_pages": 4,
+      "max_pages": 20,
+      "page_size": "A4",
+      "require_outline": true,
+      "min_internal_links": 2,
+      "min_images": 0,
+      "printable_ranges": [
+        {
+          "start": 4,
+          "end": 4,
+          "forbidden_text": [
+            "考试规范解答",
+            "思路与动机",
+            "解题方法",
+            "知识链接"
+          ],
+          "forbid_links": true
+        }
+      ]
+    }
+  ]
+}

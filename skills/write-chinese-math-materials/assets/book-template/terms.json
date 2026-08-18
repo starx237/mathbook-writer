@@ -1,0 +1,9 @@
+{
+  "forbidden": [
+    {
+      "pattern": "待统一术语",
+      "replacement": "按项目术语表统一",
+      "severity": "warning"
+    }
+  ]
+}

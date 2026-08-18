@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文数学学习材料编写"
+  short_description: "重制、整合或从零编写严谨、易读并可全面审计的中文数学学习材料"
+  default_prompt: "使用 $write-chinese-math-materials 将给定数学资料重制为可独立学习的中文 LaTeX 学习材料。"

@@ -1,0 +1,5 @@
+# Dependencies for repository validation and optional PDF audit scripts.
+PyYAML>=6.0
+# Required only by PDF audit scripts.
+pdfplumber>=0.11
+pypdf>=5.0

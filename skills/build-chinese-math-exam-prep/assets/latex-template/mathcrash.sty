@@ -1,0 +1,198 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mathcrash}[2026/07/30 Chinese math exam crash-course style]
+
+\RequirePackage[a4paper,margin=1.75cm,headheight=14pt,footskip=20pt]{geometry}
+\RequirePackage{amsmath,amssymb,mathtools,amsthm}
+\RequirePackage{booktabs,tabularx,array}
+\RequirePackage{enumitem}
+\RequirePackage{xcolor}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{graphicx}
+\RequirePackage{fancyhdr}
+\RequirePackage{hyperref}
+\RequirePackage[nameinlink,noabbrev]{cleveref}
+\RequirePackage{microtype}
+\RequirePackage{setspace}
+\RequirePackage{needspace}
+\RequirePackage{xparse}
+\RequirePackage{etoolbox}
+
+\definecolor{CrashBlue}{HTML}{145DA0}
+\definecolor{CrashDark}{HTML}{17324D}
+\definecolor{CrashGreen}{HTML}{2E7D32}
+\definecolor{CrashRed}{HTML}{B42318}
+\definecolor{CrashAmber}{HTML}{A15C00}
+\definecolor{CrashLight}{HTML}{F4F7FA}
+
+\hypersetup{
+  unicode=true,
+  colorlinks=true,
+  linkcolor=CrashBlue,
+  urlcolor=CrashBlue,
+  citecolor=CrashGreen,
+  pdfborder={0 0 0}
+}
+
+\setlist[itemize]{leftmargin=1.8em,itemsep=0.16em,topsep=0.22em}
+\setlist[enumerate]{leftmargin=2em,itemsep=0.18em,topsep=0.25em}
+\newlist{examsteps}{enumerate}{2}
+\setlist[examsteps,1]{
+  label=\textbf{步骤 \arabic*.},
+  leftmargin=5.5em,
+  labelwidth=4.7em,
+  labelsep=0.5em,
+  align=left,
+  itemsep=0.35em,
+  topsep=0.3em,
+  parsep=0.12em
+}
+\setlist[examsteps,2]{
+  label=(\arabic*),
+  leftmargin=2.2em,
+  itemsep=0.18em,
+  topsep=0.18em
+}
+\setlength{\parskip}{0.26em}
+\setlength{\parindent}{2em}
+\renewcommand{\arraystretch}{1.2}
+
+\pagestyle{fancy}
+\fancyhf{}
+\newcommand{\CrashHeaderTitle}{课程名称}
+\fancyhead[L]{\small 数学课程冲刺讲义}
+\fancyhead[R]{\small \CrashHeaderTitle}
+\fancyfoot[C]{\thepage}
+
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{example}[theorem]{例}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{说明}
+
+\newtcolorbox{methodbox}[1][]{
+  enhanced,
+  breakable,
+  colback=CrashLight,
+  colframe=CrashGreen,
+  boxrule=0.7pt,
+  arc=1mm,
+  title={解题方法},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{warningbox}[1][]{
+  enhanced,
+  breakable,
+  colback=white,
+  colframe=CrashAmber,
+  boxrule=0.7pt,
+  arc=1mm,
+  title={资料完整性提示},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{sourcefix}[1][]{
+  enhanced,
+  breakable,
+  colback=white,
+  colframe=CrashRed,
+  boxrule=0.8pt,
+  arc=1mm,
+  title={原题校勘},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{examanswer}[1][]{
+  enhanced,
+  breakable,
+  colback=white,
+  colframe=CrashDark,
+  title={考试规范解答},
+  fonttitle=\bfseries,
+  fontupper=\small,
+  before upper={\setlength{\parskip}{0.62em}\setstretch{1.08}},
+  before skip=4pt,
+  after skip=4pt,
+  boxsep=3pt,
+  #1
+}
+
+\newtcolorbox{idea}[1][]{
+  enhanced,
+  breakable,
+  colback=CrashLight,
+  colframe=CrashBlue,
+  title={思路与动机},
+  fonttitle=\bfseries,
+  fontupper=\small,
+  before upper={\setlength{\parskip}{0.55em}\setstretch{1.07}},
+  before skip=4pt,
+  after skip=6pt,
+  boxsep=3pt,
+  #1
+}
+
+\newtcolorbox{cheatbox}[1][]{
+  enhanced,
+  breakable,
+  colback=white,
+  colframe=CrashBlue,
+  boxrule=0.6pt,
+  arc=1mm,
+  #1
+}
+
+\newcommand{\knowledgelink}[2]{\hyperref[#1]{#2}}
+\newcommand{\problemid}[1]{%
+  \texorpdfstring{\textcolor{CrashBlue}{\textbf{#1}}}{#1}%
+}
+\newcommand{\printproblemid}[1]{\textbf{#1}}
+\NewDocumentCommand{\problemstart}{O{0.31}}{\Needspace{#1\textheight}}
+\newcommand{\score}[1]{\textbf{#1 分}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+% Store each mock statement once, then render a print copy and a solved copy.
+\NewDocumentCommand{\DeclareMockProblem}{m +m +m +m}{
+  \csgdef{mock@#1@statement}{#2}
+  \csgdef{mock@#1@answer}{#3}
+  \csgdef{mock@#1@idea}{#4}
+}
+
+\NewDocumentCommand{\PrintMockProblem}{m m}{
+  \subsection*{#2\quad\printproblemid{#1}}
+  \csuse{mock@#1@statement}
+}
+
+\NewDocumentCommand{\SolveMockProblem}{m m}{
+  \problemstart
+  \subsection{#2（\problemid{#1}）}
+  \paragraph{题目}
+  \csuse{mock@#1@statement}
+  \begin{examanswer}
+    \csuse{mock@#1@answer}
+  \end{examanswer}
+  \begin{idea}
+    \csuse{mock@#1@idea}
+  \end{idea}
+}
+
+\NewDocumentEnvironment{mockpaper}{m m}{
+  \clearpage
+  \section{#1}
+  \begingroup
+  \noindent\textbf{#2}\par\medskip
+}{
+  \par\medskip
+  \noindent\textit{本页到此结束。请在限时完成后再翻阅答案区。}
+  \endgroup
+}
