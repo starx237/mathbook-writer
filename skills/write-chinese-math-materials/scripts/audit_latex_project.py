@@ -32,8 +32,8 @@ LOG_RULES = (
     ("error", re.compile(r"There were undefined references")),
     ("error", re.compile(r"There were undefined citations")),
     ("error", re.compile(r"multiply defined", re.IGNORECASE)),
-    ("warning", re.compile(r"Overfull \\\\[hv]box")),
-    ("warning", re.compile(r"Underfull \\\\[hv]box")),
+    ("warning", re.compile(r"Overfull \\[hv]box")),
+    ("warning", re.compile(r"Underfull \\[hv]box")),
     ("warning", re.compile(r"Missing character:")),
     ("warning", re.compile(r"Token not allowed in a PDF string")),
     ("warning", re.compile(r"Rerun to get cross-references right")),
@@ -307,7 +307,8 @@ def main() -> int:
         print(f"[ERROR] 无法完成检查：{exc}", file=sys.stderr)
         return 2
 
-    print(f"已检查 {len(files)} 个实际输入的 TeX 文件。")
+    if not args.json:
+        print(f"已检查 {len(files)} 个实际输入的 TeX 文件。")
     print_findings(findings, args.json)
     errors = sum(item.severity == "error" for item in findings)
     warnings = sum(item.severity == "warning" for item in findings)

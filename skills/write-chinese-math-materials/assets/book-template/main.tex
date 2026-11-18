@@ -14,6 +14,8 @@
 \tableofcontents
 
 \mainmatter
+% 本模板采用第零章；不设第零章的项目请删除下面的计数设置。
+\setcounter{chapter}{-1}
 \input{chapters/00-prerequisites}
 \input{chapters/01-template}
 
@@ -21,8 +23,9 @@
 \input{appendices/solutions}
 
 \backmatter
-\nocite{sample}
-\bibliographystyle{alpha}
-\bibliography{references}
+% 使用真实文献时，先替换 references.bib 中的 sample 条目，
+% 在正文用 \cite{...} 引用，再取消注释以下两行。
+% \bibliographystyle{alpha}
+% \bibliography{references}
 
 \end{document}

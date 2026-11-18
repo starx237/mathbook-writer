@@ -1,6 +1,7 @@
 \usepackage[a4paper,margin=2.6cm]{geometry}
 \usepackage{amsmath,amssymb,mathtools}
 \usepackage{amsthm}
+\usepackage{needspace}
 \usepackage{enumitem}
 \usepackage{xcolor}
 \usepackage{hyperref}
@@ -18,19 +19,22 @@
 \newtheorem{lemma}[theorem]{引理}
 \newtheorem{proposition}[theorem]{命题}
 \newtheorem{corollary}[theorem]{推论}
-\newtheorem{deepinput}[theorem]{深层输入*}
-\newtheorem{exercise}[theorem]{习题}
+\newtheorem{theoremstar}[theorem]{定理*}
+\newtheorem{deepinput}[theorem]{定理*} % 兼容旧源码；新模板用 theoremstar
+\newtheorem{exercise}{习题}[chapter]
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{定义}
 \newtheorem{example}[theorem]{例}
 
-\theoremstyle{remark}
+\newtheoremstyle{chinesenote}
+  {\topsep}{\topsep}{\kaishu}{}{\kaishu}{。}{0.5em}{}
+\theoremstyle{chinesenote}
 \newtheorem{note}[theorem]{注记}
-\newtheorem*{proofidea}{证明架构}
+\newtheorem*{proofidea}{证明路线}
 
 \newcommand{\proofphase}[1]{%
-  \par\medskip\noindent\textbf{#1}\par\smallskip
+  \par\Needspace{5\baselineskip}\medskip\noindent\textbf{#1}\par\smallskip
 }
 \newcommand{\stepdetail}[1]{%
   \par\smallskip{\small\songti #1}
